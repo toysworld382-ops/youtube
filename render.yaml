@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: youtube-downloader
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn -c gunicorn.conf.py wsgi:app"
+    # If your project is in a subdirectory like 'youtube-downloader/' within your repo,
+    # set the 'rootDir' to that subdirectory. Otherwise, remove this line or leave it empty.
+    # For this project, assuming it's the root of the repo, rootDir is not needed.
+    # If your repo contains this project in a subfolder, e.g., 'my-monorepo/youtube-downloader',
+    # then you would set rootDir: youtube-downloader
+    # For now, we assume this project is the root of the repo.
+    # rootDir: .
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.12 # Or your preferred Python version, e.g., 3.10.x, 3.11.x
+      - key: SECRET_KEY
+        generateValue: true # Render can generate a secure key for you
+      - key: ENABLE_ADS
+        value: "true"
+      - key: ADSENSE_PUBLISHER_ID
+        value: "pub-XXXXXXXXXXXXXXXXX" # Replace with your actual AdSense publisher ID
+      - key: DOMAIN
+        value: "https://your-domain.com" # Replace with your actual domain
+
+
